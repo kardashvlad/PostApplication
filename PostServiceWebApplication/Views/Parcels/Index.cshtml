@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PostServiceWebApplication.Models.Parcel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Посилки від @ViewBag.ClientName</h1>
+
+<p>
+    @Html.ActionLink("Додати нову посилку", "Create", new {id = ViewBag.ClientId})
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFragile)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientTo.Name)
+            </td>
+            <td>
+                    @if (item.Status != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    }
+                    else
+                    {
+                        <p>Невідомий</p>
+                    }
+            </td>
+            <td>
+                    @if (item.Type != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Type.ShipmentCost)
+                    }
+                    else
+                    {
+                        <p>Невідомий</p>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsFragile)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
